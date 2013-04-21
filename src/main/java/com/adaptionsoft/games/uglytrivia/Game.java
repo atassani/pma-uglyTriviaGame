@@ -130,7 +130,7 @@ public class Game {
 				return true;
 			}
 		} else {
-			System.out.println("Answer was corrent!!!!");
+			System.out.println(messageAnswerWasCorrect());
 			purses[currentPlayer]++;
 			System.out.println(players.get(currentPlayer) 
 					+ " now has "
@@ -145,6 +145,10 @@ public class Game {
 		}
 	}
 	
+	public String messageAnswerWasCorrect() {
+		return "Answer was corrent!!!!";
+	}
+		
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");

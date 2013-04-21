@@ -9,6 +9,8 @@ import java.util.Random;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,5 +56,10 @@ public class CharacterizationTests {
 		GameRunner.run(game, rand);
 		assertEquals(1033677161L , checker.checksum.getValue());
 		checker.close();		
+	}
+	
+	public void messageAnswerWasCorrect() {
+		Game game = new Game();
+		Assert.assertEquals("Answer was corrent!!!!", game.messageAnswerWasCorrect());
 	}
 }
