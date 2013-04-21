@@ -45,14 +45,24 @@ public class CharacterizationTests {
 	@Test 
 	public void characterizationTestSixPlayers() throws IOException {
 		Game game = new Game();
-		game.add("Chet");
-		game.add("Pat");
-		game.add("Sue");
-		game.add("Tom");
-		game.add("Dick");
-		game.add("Harry");
+		game.addPlayer("Chet");
+		game.addPlayer("Pat");
+		game.addPlayer("Sue");
+		game.addPlayer("Tom");
+		game.addPlayer("Dick");
+		game.addPlayer("Harry");
 		GameRunner.run(game, rand);
 		assertEquals(3219854289L , checker.checksum.getValue());
+		checker.close();		
+	}
+	
+	@Test 
+	public void characterizationTestSixteenPlayers() throws IOException {
+		Game game = new Game();
+		for (int i=0; i< 16; i++) 
+			game.addPlayer("Player"+i);
+		GameRunner.run(game, rand);
+		assertEquals(142492561L , checker.checksum.getValue());
 		checker.close();		
 	}
 }
