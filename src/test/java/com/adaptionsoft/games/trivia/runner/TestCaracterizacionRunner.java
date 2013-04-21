@@ -11,6 +11,7 @@ import java.util.zip.Checksum;
 
 import org.junit.Test;
 
+import com.adaptionsoft.games.trivia.runner.GameRunner;
 import com.adaptionsoft.games.uglytrivia.Game;
 
 public class TestCaracterizacionRunner {
