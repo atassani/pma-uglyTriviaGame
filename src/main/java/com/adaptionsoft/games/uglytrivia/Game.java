@@ -19,30 +19,19 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
-    	}
+	    	for (int i = 0; i < 50; i++) {
+				popQuestions.addLast("Pop Question " + i);
+				scienceQuestions.addLast(("Science Question " + i));
+				sportsQuestions.addLast(("Sports Question " + i));
+				rockQuestions.addLast("Rock Question " + i);
+	    	}
     }
 
-	public String createRockQuestion(int index){
-		return "Rock Question " + index;
-	}
-
-	/**
-	 * Return true if the game is playable.
-	 * 
-	 * @return true if the game is playable.
-	 */
 	public boolean isPlayable() {
 		return (howManyPlayers() >= 2);
 	}
 
 	public boolean add(String playerName) {
-		
-		
 	    players.add(playerName);
 	    places[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
@@ -51,11 +40,6 @@ public class Game {
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
 		return true;
-	}
-	
-	public boolean remove(String playerName) {
-	  players.remove(howManyPlayers());
-	  return true;
 	}
 	
 	public int howManyPlayers() {
@@ -85,7 +69,6 @@ public class Game {
 				}
 			
 		} else {
-		
 			places[currentPlayer] = places[currentPlayer] + roll;
 			if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 			
@@ -113,7 +96,6 @@ public class Game {
     System.out.println("Hello World!"); // Display the string.
   }
 
-	// randomly return a category
 	private String currentCategory() {
 		if (places[currentPlayer] == 0) return "Pop";
 		if (places[currentPlayer] == 4) return "Pop";
@@ -147,11 +129,7 @@ public class Game {
 				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
 			}
-			
-			
-			
 		} else {
-		
 			System.out.println("Answer was corrent!!!!");
 			purses[currentPlayer]++;
 			System.out.println(players.get(currentPlayer) 
@@ -177,23 +155,6 @@ public class Game {
 		return true;
 	}
 
-	public static class SimpleSingleton {
-    private static SimpleSingleton singleInstance =  new SimpleSingleton();
- 
-    //Marking default constructor private
-    //to avoid direct instantiation.
-    private SimpleSingleton() {
-    }
- 
-    //Get instance for class SimpleSingleton
-    public static SimpleSingleton getInstance() {
- 
-        return singleInstance;
-  }
-}
-	/**
-	 * Tells if the last player won.
-	 */
 	private boolean didPlayerWin() {
 		return !(purses[currentPlayer] == 6);
 	}
