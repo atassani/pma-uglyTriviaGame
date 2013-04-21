@@ -14,7 +14,8 @@ public class GameRunner {
 	static void run(Game aGame, Random rand) {
 		boolean notAWinner;
 		do {
-			aGame.roll(rand.nextInt(5) + 1);
+			if (!aGame.roll(rand.nextInt(5) + 1))
+				return;
 			if (rand.nextInt(9) == 7) {
 				notAWinner = aGame.wrongAnswer();
 			} else {

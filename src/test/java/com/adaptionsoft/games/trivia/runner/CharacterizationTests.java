@@ -72,7 +72,7 @@ public class CharacterizationTests {
 		for (int i=0; i< 60; i++) 
 			game.addPlayer("Player"+i);
 		GameRunner.run(game, rand);
-		assertEquals(142492561L , checker.checksum.getValue());
+		assertEquals(94728590L , checker.checksum.getValue());
 		checker.close();		
 	}
 }

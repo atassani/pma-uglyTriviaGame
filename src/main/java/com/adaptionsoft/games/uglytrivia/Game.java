@@ -33,7 +33,7 @@ public class Game {
 		return true;
 	}
 	
-	public void roll(int roll) {
+	public boolean roll(int roll) {
 		if (currentPlayer == null) currentPlayer = players.get(0);
 		System.out.println(getString("Game.XIsTheCurrentPlayer", currentPlayer.getName()));  //$NON-NLS-1$
 		System.out.println(getString("Game.HasRolledAX", roll));  //$NON-NLS-1$
@@ -41,33 +41,46 @@ public class Game {
 			if (roll % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 				System.out.println(getString("Game.XIsGettingOutOfPenaltyBox", currentPlayer.getName()));  //$NON-NLS-1$
-				playerAdvancesAndGetsNewQuestion(roll);
+				return playerAdvancesAndGetsNewQuestion(roll);
 			} else {
 				System.out.println(getString("Game.XIsNotGettingOutOfPenaltyBox", currentPlayer.getName()));  //$NON-NLS-1$
 				isGettingOutOfPenaltyBox = false;
+				return true;
 			}
 		} else {
-			playerAdvancesAndGetsNewQuestion(roll);
+			return playerAdvancesAndGetsNewQuestion(roll);
 		}
 	}
 
-	private void playerAdvancesAndGetsNewQuestion(int roll) {
+	private boolean playerAdvancesAndGetsNewQuestion(int roll) {
 		currentPlayer.advancePlaces(roll);
 		
 		System.out.println(getString("Game.NewLocationOfXIsY", currentPlayer.getName(), currentPlayer.getPlace()));  //$NON-NLS-1$
 		System.out.println(getString("Game.CategoryIsX",  currentCategory()));  //$NON-NLS-1$
-		askQuestion();
+		String question = askQuestion();
+		if (question == null) {
+			System.out.println("No more questions. Game is over");
+			return false;
+		} 
+		System.out.println(question);
+		return true;
 	}
 
-	private void askQuestion() {
+	private String askQuestion() {
+		LinkedList<String> questions = null;
 		if (currentCategory().equals(getString("Game.Pop")))   //$NON-NLS-1$
-			System.out.println(popQuestions.removeFirst());
+			questions = popQuestions;
 		if (currentCategory().equals(getString("Game.Science")))   //$NON-NLS-1$
-			System.out.println(scienceQuestions.removeFirst());
+			questions = scienceQuestions;
 		if (currentCategory().equals(getString("Game.Sports")))   //$NON-NLS-1$
-			System.out.println(sportsQuestions.removeFirst());
+			questions = sportsQuestions;
 		if (currentCategory().equals(getString("Game.Rock")))   //$NON-NLS-1$
-			System.out.println(rockQuestions.removeFirst());		
+			questions = rockQuestions;
+		String question = null;
+		if (!questions.isEmpty())
+			question = questions.removeFirst();
+		return question;
+		
 	}
 	
 	private String currentCategory() {
