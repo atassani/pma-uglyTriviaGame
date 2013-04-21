@@ -5,10 +5,10 @@ import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
-    int[] places = new int[6];
-    int[] purses  = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
-    int[] highscores= new int[6];
+    int[] places = new int[7];
+    int[] purses  = new int[7];
+    boolean[] inPenaltyBox  = new boolean[7];
+    int[] highscores= new int[7];
 
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();

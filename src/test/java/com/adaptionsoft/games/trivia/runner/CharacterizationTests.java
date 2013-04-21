@@ -52,7 +52,7 @@ public class CharacterizationTests {
 		game.add("Dick");
 		game.add("Harry");
 		GameRunner.run(game, rand);
-		assertEquals(1763398543L , checker.checksum.getValue());
+		assertEquals(1033677161L , checker.checksum.getValue());
 		checker.close();		
 	}
 }
