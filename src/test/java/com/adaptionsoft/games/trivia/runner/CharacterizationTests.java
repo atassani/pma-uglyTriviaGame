@@ -9,12 +9,15 @@ import java.util.Random;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.adaptionsoft.games.trivia.runner.GameRunner;
 import com.adaptionsoft.games.uglytrivia.Game;
 
-public class TestCaracterizacionRunner {
+public class CharacterizationTests {
+	private Checker checker;
+	private Random rand;
 
 	class Checker extends OutputStream {
 		Checksum checksum = new CRC32();
@@ -24,15 +27,32 @@ public class TestCaracterizacionRunner {
 		}
 	}
 	
-	@Test
-	public void test() throws IOException {
-		Checker checker = new Checker();
+	@Before
+	public void setUp() {
+		checker = new Checker();
 		System.setOut(new PrintStream(checker));
+		rand = new Random(0L);
+	}
+	
+	@Test
+	public void characterizationTestThreePlayers() throws IOException {
 		Game game = GameRunner.initialize();
-		Random rand = new Random(0L);
 		GameRunner.run(game, rand);
 		assertEquals(1763398543L , checker.checksum.getValue());
 		checker.close();
 	}
-
+	
+	@Test 
+	public void characterizationTestSixPlayers() throws IOException {
+		Game game = new Game();
+		game.add("Chet");
+		game.add("Pat");
+		game.add("Sue");
+		game.add("Tom");
+		game.add("Dick");
+		game.add("Harry");
+		GameRunner.run(game, rand);
+		assertEquals(1763398543L , checker.checksum.getValue());
+		checker.close();		
+	}
 }
