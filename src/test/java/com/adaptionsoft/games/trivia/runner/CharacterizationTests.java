@@ -40,10 +40,10 @@ public class CharacterizationTests {
 	public void characterizationTestThreePlayers() throws IOException {
 		Game game = GameRunner.initialize();
 		GameRunner.run(game, rand);
-		assertEquals(1763398543L , checker.checksum.getValue());
+		assertEquals(590124755L , checker.checksum.getValue());
 		checker.close();
 	}
-	
+		
 	@Test 
 	public void characterizationTestSixPlayers() throws IOException {
 		Game game = new Game();
@@ -54,12 +54,12 @@ public class CharacterizationTests {
 		game.add("Dick");
 		game.add("Harry");
 		GameRunner.run(game, rand);
-		assertEquals(1033677161L , checker.checksum.getValue());
+		assertEquals(3219854289L , checker.checksum.getValue());
 		checker.close();		
 	}
 	
 	public void messageAnswerWasCorrect() {
 		Game game = new Game();
-		Assert.assertEquals("Answer was corrent!!!!", game.messageAnswerWasCorrect());
+		Assert.assertEquals("Answer was correct!!!!", game.messageAnswerWasCorrect());
 	}
 }
