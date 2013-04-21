@@ -65,4 +65,14 @@ public class CharacterizationTests {
 		assertEquals(142492561L , checker.checksum.getValue());
 		checker.close();		
 	}
+
+	@Test 
+	public void characterizationTestSixtyPlayers() throws IOException {
+		Game game = new Game();
+		for (int i=0; i< 60; i++) 
+			game.addPlayer("Player"+i);
+		GameRunner.run(game, rand);
+		assertEquals(142492561L , checker.checksum.getValue());
+		checker.close();		
+	}
 }
