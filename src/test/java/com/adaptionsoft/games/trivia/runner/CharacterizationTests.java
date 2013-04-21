@@ -9,8 +9,6 @@ import java.util.Random;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 

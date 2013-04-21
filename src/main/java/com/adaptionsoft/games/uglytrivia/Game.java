@@ -20,10 +20,10 @@ public class Game {
     
     public  Game(){
 	    	for (int i = 0; i < 50; i++) {
-				popQuestions.addLast(String.format("Pop Question %s", i));
-				scienceQuestions.addLast(String.format("Science Question %s", i));
-				sportsQuestions.addLast(String.format("Sports Question %s", i));
-				rockQuestions.addLast(String.format("Rock Question %s", i));
+				popQuestions.addLast(Messages.getString("Game.PopQuestionX", i)); //$NON-NLS-1$
+				scienceQuestions.addLast(Messages.getString("Game.ScienceQuestionX", i)); //$NON-NLS-1$
+				sportsQuestions.addLast(Messages.getString("Game.SportsQuestionX", i)); //$NON-NLS-1$
+				rockQuestions.addLast(Messages.getString("Game.RockQuestionX", i)); //$NON-NLS-1$
 	    	}
     }
 
@@ -37,8 +37,8 @@ public class Game {
 	    purses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
 	    
-	    System.out.println(String.format("%s was added", playerName ));
-	    System.out.println(String.format("They are player number %s", players.size()));
+	    System.out.println(Messages.getString("Game.PlayerXWasAdded", playerName ));  //$NON-NLS-1$
+	    System.out.println(Messages.getString("Game.IsPlayerNumberX", players.size()));  //$NON-NLS-1$
 		return true;
 	}
 	
@@ -47,64 +47,64 @@ public class Game {
 	}
 
 	public void roll(int roll) {
-		System.out.println(String.format("%s is the current player", players.get(currentPlayer)));
-		System.out.println(String.format("They have rolled a %s", roll));
+		System.out.println(Messages.getString("Game.XIsTheCurrentPlayer", players.get(currentPlayer)));  //$NON-NLS-1$
+		System.out.println(Messages.getString("Game.HasRolledAX", roll));  //$NON-NLS-1$
 		
 		if (inPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 				
-				System.out.println(String.format("%s is getting out of the penalty box", players.get(currentPlayer)));
+				System.out.println(Messages.getString("Game.XIsGettingOutOfPenaltyBox", players.get(currentPlayer)));  //$NON-NLS-1$
 				places[currentPlayer] = places[currentPlayer] + roll;
 				if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 				
-				System.out.println(String.format("%s's new location is %s", players.get(currentPlayer), places[currentPlayer]));
-				System.out.println(String.format("The category is %s",  currentCategory()));
+				System.out.println(Messages.getString("Game.NewLocationOfXIsY", players.get(currentPlayer), places[currentPlayer]));  //$NON-NLS-1$
+				System.out.println(Messages.getString("Game.CategoryIsX",  currentCategory()));  //$NON-NLS-1$
 				askQuestion();
 			} else {
-				System.out.println(String.format("%s is not getting out of the penalty box", players.get(currentPlayer)));
+				System.out.println(Messages.getString("Game.XIsNotGettingOutOfPenaltyBox", players.get(currentPlayer)));  //$NON-NLS-1$
 				isGettingOutOfPenaltyBox = false;
 				}
 		} else {
 			places[currentPlayer] = places[currentPlayer] + roll;
 			if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 			
-			System.out.println(String.format("%s's new location is %s", players.get(currentPlayer), places[currentPlayer]));
-			System.out.println(String.format("The category is %s", currentCategory()));
+			System.out.println(Messages.getString("Game.NewLocationOfXIsY", players.get(currentPlayer), places[currentPlayer]));  //$NON-NLS-1$
+			System.out.println(Messages.getString("Game.CategoryIsX",  currentCategory()));  //$NON-NLS-1$
 			askQuestion();
 		}
 	}
 
 	private void askQuestion() {
-		if (currentCategory() == "Pop")
+		if (currentCategory().equals(Messages.getString("Game.Pop")))   //$NON-NLS-1$
 			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
+		if (currentCategory().equals(Messages.getString("Game.Science")))   //$NON-NLS-1$
 			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
+		if (currentCategory().equals(Messages.getString("Game.Sports")))   //$NON-NLS-1$
 			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
+		if (currentCategory().equals(Messages.getString("Game.Rock")))   //$NON-NLS-1$
 			System.out.println(rockQuestions.removeFirst());		
 	}
 	
 	private String currentCategory() {
-		if (places[currentPlayer] == 0) return "Pop";
-		if (places[currentPlayer] == 4) return "Pop";
-		if (places[currentPlayer] == 8) return "Pop";
-		if (places[currentPlayer] == 1) return "Science";
-		if (places[currentPlayer] == 5) return "Science";
-		if (places[currentPlayer] == 9) return "Science";
-		if (places[currentPlayer] == 2) return "Sports";
-		if (places[currentPlayer] == 6) return "Sports";
-		if (places[currentPlayer] == 10) return "Sports";
-		return "Rock";
+		if (places[currentPlayer] == 0) return Messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (places[currentPlayer] == 4) return Messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (places[currentPlayer] == 8) return Messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (places[currentPlayer] == 1) return Messages.getString("Game.Science");  //$NON-NLS-1$
+		if (places[currentPlayer] == 5) return Messages.getString("Game.Science");  //$NON-NLS-1$
+		if (places[currentPlayer] == 9) return Messages.getString("Game.Science");  //$NON-NLS-1$
+		if (places[currentPlayer] == 2) return Messages.getString("Game.Sports");  //$NON-NLS-1$
+		if (places[currentPlayer] == 6) return Messages.getString("Game.Sports");  //$NON-NLS-1$
+		if (places[currentPlayer] == 10) return Messages.getString("Game.Sports");  //$NON-NLS-1$
+		return Messages.getString("Game.Rock");  //$NON-NLS-1$
 	}
 
 	public boolean wasCorrectlyAnswered() {
 		if (inPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
+				System.out.println(Messages.getString("Game.AnswerWasCorrect"));  //$NON-NLS-1$
 				purses[currentPlayer]++;
-				System.out.println(String.format("%s now has %s Gold Coins.", players.get(currentPlayer), purses[currentPlayer]));
+				System.out.println(Messages.getString("Game.XHasYGoldCoins", players.get(currentPlayer), purses[currentPlayer]));  //$NON-NLS-1$
 				
 				boolean winner = didPlayerWin();
 				currentPlayer++;
@@ -117,9 +117,9 @@ public class Game {
 				return true;
 			}
 		} else {
-			System.out.println("Answer was correct!!!!");
+			System.out.println(Messages.getString("Game.AnswerWasCorrect"));  //$NON-NLS-1$
 			purses[currentPlayer]++;
-			System.out.println(String.format("%s now has %s Gold Coins.", players.get(currentPlayer), purses[currentPlayer]));
+			System.out.println(Messages.getString("Game.XHasYGoldCoins", players.get(currentPlayer), purses[currentPlayer]));  //$NON-NLS-1$
 			
 			boolean winner = didPlayerWin();
 			currentPlayer++;
@@ -130,8 +130,8 @@ public class Game {
 	}
 		
 	public boolean wrongAnswer(){
-		System.out.println("Question was incorrectly answered");
-		System.out.println(String.format("%s was sent to the penalty box", players.get(currentPlayer)));
+		System.out.println(Messages.getString("Game.AnswerWasNotCorrect"));   //$NON-NLS-1$
+		System.out.println(Messages.getString("Game.XWasSentToPenaltyBox", players.get(currentPlayer)));   //$NON-NLS-1$
 		inPenaltyBox[currentPlayer] = true;
 		
 		currentPlayer++;
