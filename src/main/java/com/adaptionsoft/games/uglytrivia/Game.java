@@ -102,7 +102,7 @@ public class Game {
 	public boolean wasCorrectlyAnswered() {
 		if (inPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
-				System.out.println(messageAnswerWasCorrect());
+				System.out.println("Answer was correct!!!!");
 				purses[currentPlayer]++;
 				System.out.println(String.format("%s now has %s Gold Coins.", players.get(currentPlayer), purses[currentPlayer]));
 				
@@ -117,7 +117,7 @@ public class Game {
 				return true;
 			}
 		} else {
-			System.out.println(messageAnswerWasCorrect());
+			System.out.println("Answer was correct!!!!");
 			purses[currentPlayer]++;
 			System.out.println(String.format("%s now has %s Gold Coins.", players.get(currentPlayer), purses[currentPlayer]));
 			
@@ -127,10 +127,6 @@ public class Game {
 			
 			return winner;
 		}
-	}
-	
-	public String messageAnswerWasCorrect() {
-		return "Answer was correct!!!!";
 	}
 		
 	public boolean wrongAnswer(){

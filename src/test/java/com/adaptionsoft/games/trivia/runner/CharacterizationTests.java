@@ -57,9 +57,4 @@ public class CharacterizationTests {
 		assertEquals(3219854289L , checker.checksum.getValue());
 		checker.close();		
 	}
-	
-	public void messageAnswerWasCorrect() {
-		Game game = new Game();
-		Assert.assertEquals("Answer was correct!!!!", game.messageAnswerWasCorrect());
-	}
 }
