@@ -2,7 +2,6 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import static com.adaptionsoft.games.uglytrivia.Messages.getString;
 
 public class Game {
 	ArrayList<Player> players = new ArrayList<Player>();
@@ -15,35 +14,37 @@ public class Game {
     Player currentPlayer;
     int currentPlayerIndex = 0;
     boolean isGettingOutOfPenaltyBox;
+
+    private Messages messages = new Messages();
     
 	public Game() {
 		for (int i = 0; i < 50; i++) {
-			popQuestions.addLast(getString("Game.PopQuestionX", i)); //$NON-NLS-1$
-			scienceQuestions.addLast(getString("Game.ScienceQuestionX", i)); //$NON-NLS-1$
-			sportsQuestions.addLast(getString("Game.SportsQuestionX", i)); //$NON-NLS-1$
-			rockQuestions.addLast(getString("Game.RockQuestionX", i)); //$NON-NLS-1$
+			popQuestions.addLast(messages.getString("Game.PopQuestionX", i)); //$NON-NLS-1$
+			scienceQuestions.addLast(messages.getString("Game.ScienceQuestionX", i)); //$NON-NLS-1$
+			sportsQuestions.addLast(messages.getString("Game.SportsQuestionX", i)); //$NON-NLS-1$
+			rockQuestions.addLast(messages.getString("Game.RockQuestionX", i)); //$NON-NLS-1$
 		}
 	}
 
 	public boolean addPlayer(String playerName) {
 	    players.add(new Player(playerName));
 	    
-	    System.out.println(getString("Game.PlayerXWasAdded", playerName ));  //$NON-NLS-1$
-	    System.out.println(getString("Game.IsPlayerNumberX", players.size()));  //$NON-NLS-1$
+	    System.out.println(messages.getString("Game.PlayerXWasAdded", playerName ));  //$NON-NLS-1$
+	    System.out.println(messages.getString("Game.IsPlayerNumberX", players.size()));  //$NON-NLS-1$
 		return true;
 	}
 	
 	public boolean roll(int roll) {
 		if (currentPlayer == null) currentPlayer = players.get(0);
-		System.out.println(getString("Game.XIsTheCurrentPlayer", currentPlayer.getName()));  //$NON-NLS-1$
-		System.out.println(getString("Game.HasRolledAX", roll));  //$NON-NLS-1$
+		System.out.println(messages.getString("Game.XIsTheCurrentPlayer", currentPlayer.getName()));  //$NON-NLS-1$
+		System.out.println(messages.getString("Game.HasRolledAX", roll));  //$NON-NLS-1$
 		if (currentPlayer.isInPenaltyBox()) {
 			if (roll % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
-				System.out.println(getString("Game.XIsGettingOutOfPenaltyBox", currentPlayer.getName()));  //$NON-NLS-1$
+				System.out.println(messages.getString("Game.XIsGettingOutOfPenaltyBox", currentPlayer.getName()));  //$NON-NLS-1$
 				return playerAdvancesAndGetsNewQuestion(roll);
 			} else {
-				System.out.println(getString("Game.XIsNotGettingOutOfPenaltyBox", currentPlayer.getName()));  //$NON-NLS-1$
+				System.out.println(messages.getString("Game.XIsNotGettingOutOfPenaltyBox", currentPlayer.getName()));  //$NON-NLS-1$
 				isGettingOutOfPenaltyBox = false;
 				return true;
 			}
@@ -55,8 +56,8 @@ public class Game {
 	private boolean playerAdvancesAndGetsNewQuestion(int roll) {
 		currentPlayer.advancePlaces(roll);
 		
-		System.out.println(getString("Game.NewLocationOfXIsY", currentPlayer.getName(), currentPlayer.getPlace()));  //$NON-NLS-1$
-		System.out.println(getString("Game.CategoryIsX",  currentCategory()));  //$NON-NLS-1$
+		System.out.println(messages.getString("Game.NewLocationOfXIsY", currentPlayer.getName(), currentPlayer.getPlace()));  //$NON-NLS-1$
+		System.out.println(messages.getString("Game.CategoryIsX",  currentCategory()));  //$NON-NLS-1$
 		String question = askQuestion();
 		if (question == null) {
 			System.out.println("No more questions. Game is over");
@@ -68,13 +69,13 @@ public class Game {
 
 	private String askQuestion() {
 		LinkedList<String> questions = null;
-		if (currentCategory().equals(getString("Game.Pop")))   //$NON-NLS-1$
+		if (currentCategory().equals(messages.getString("Game.Pop")))   //$NON-NLS-1$
 			questions = popQuestions;
-		if (currentCategory().equals(getString("Game.Science")))   //$NON-NLS-1$
+		if (currentCategory().equals(messages.getString("Game.Science")))   //$NON-NLS-1$
 			questions = scienceQuestions;
-		if (currentCategory().equals(getString("Game.Sports")))   //$NON-NLS-1$
+		if (currentCategory().equals(messages.getString("Game.Sports")))   //$NON-NLS-1$
 			questions = sportsQuestions;
-		if (currentCategory().equals(getString("Game.Rock")))   //$NON-NLS-1$
+		if (currentCategory().equals(messages.getString("Game.Rock")))   //$NON-NLS-1$
 			questions = rockQuestions;
 		String question = null;
 		if (!questions.isEmpty())
@@ -84,16 +85,16 @@ public class Game {
 	}
 	
 	private String currentCategory() {
-		if (currentPlayer.getPlace() == 0) return getString("Game.Pop");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 4) return getString("Game.Pop");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 8) return getString("Game.Pop");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 1) return getString("Game.Science");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 5) return getString("Game.Science");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 9) return getString("Game.Science");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 2) return getString("Game.Sports");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 6) return getString("Game.Sports");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 10) return getString("Game.Sports");  //$NON-NLS-1$
-		return getString("Game.Rock");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 0) return messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 4) return messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 8) return messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 1) return messages.getString("Game.Science");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 5) return messages.getString("Game.Science");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 9) return messages.getString("Game.Science");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 2) return messages.getString("Game.Sports");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 6) return messages.getString("Game.Sports");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 10) return messages.getString("Game.Sports");  //$NON-NLS-1$
+		return messages.getString("Game.Rock");  //$NON-NLS-1$
 	}
 
 	public boolean wasCorrectlyAnswered() {
@@ -109,9 +110,9 @@ public class Game {
 	}
 
 	private void correctAnswerAndReward() {
-		System.out.println(getString("Game.AnswerWasCorrect"));  //$NON-NLS-1$
+		System.out.println(messages.getString("Game.AnswerWasCorrect"));  //$NON-NLS-1$
 		currentPlayer.rewardCorrectAnswer();
-		System.out.println(getString("Game.XHasYGoldCoins", currentPlayer.getName(), currentPlayer.getPurse()));  //$NON-NLS-1$
+		System.out.println(messages.getString("Game.XHasYGoldCoins", currentPlayer.getName(), currentPlayer.getPurse()));  //$NON-NLS-1$
 	}
 
 	private void nextPlayer() {
@@ -121,8 +122,8 @@ public class Game {
 	}
 		
 	public boolean wrongAnswer(){
-		System.out.println(getString("Game.AnswerWasNotCorrect"));   //$NON-NLS-1$
-		System.out.println(getString("Game.XWasSentToPenaltyBox", currentPlayer.getName()));   //$NON-NLS-1$
+		System.out.println(messages.getString("Game.AnswerWasNotCorrect"));   //$NON-NLS-1$
+		System.out.println(messages.getString("Game.XWasSentToPenaltyBox", currentPlayer.getName()));   //$NON-NLS-1$
 		currentPlayer.sendToPenaltyBox();
 		
 		nextPlayer();

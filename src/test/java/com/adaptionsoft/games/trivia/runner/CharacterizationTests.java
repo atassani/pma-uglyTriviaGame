@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Locale;
 import java.util.Random;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
@@ -29,6 +30,7 @@ public class CharacterizationTests {
 	
 	@Before
 	public void setUp() {
+		Locale.setDefault(new Locale("en"));
 		checker = new Checker();
 		System.setOut(new PrintStream(checker));
 		rand = new Random(0L);

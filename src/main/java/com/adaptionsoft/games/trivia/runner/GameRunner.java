@@ -1,4 +1,5 @@
 package com.adaptionsoft.games.trivia.runner;
+import java.util.Locale;
 import java.util.Random;
 
 import com.adaptionsoft.games.uglytrivia.Game;
@@ -25,6 +26,7 @@ public class GameRunner {
 	}
 
 	static Game initialize() {
+		Locale.setDefault(new Locale("en"));
 		Game aGame = new Game();
 		aGame.addPlayer("Chet");
 		aGame.addPlayer("Pat");
