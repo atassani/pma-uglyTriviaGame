@@ -50,7 +50,5 @@ public class CharacterizationLocalizationTest {
 		System.setOut(oldOut);
 		Assert.assertEquals(EXPECTED_START, text.substring(0, 96));
 		Assert.assertEquals(EXPECTED_END, text.substring(2972, text.length()));
-
 	}
-
 }

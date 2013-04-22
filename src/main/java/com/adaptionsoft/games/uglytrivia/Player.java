@@ -5,7 +5,6 @@ public class Player {
     private int place;
     private int purse;
     private boolean inPenaltyBox;
-    private int highscore;
 
     public Player(String name) {
     		this.name = name;

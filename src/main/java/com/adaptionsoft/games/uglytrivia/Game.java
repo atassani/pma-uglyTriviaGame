@@ -1,29 +1,20 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Game {
 	ArrayList<Player> players = new ArrayList<Player>();
+	
+	private Questions questions;
 
-    LinkedList<String> popQuestions = new LinkedList<String>();
-    LinkedList<String> scienceQuestions = new LinkedList<String>();
-    LinkedList<String> sportsQuestions = new LinkedList<String>();
-    LinkedList<String> rockQuestions = new LinkedList<String>();
-    
-    Player currentPlayer;
+	Player currentPlayer;
     int currentPlayerIndex = 0;
     boolean isGettingOutOfPenaltyBox;
 
     private Messages messages = new Messages();
     
 	public Game() {
-		for (int i = 0; i < 50; i++) {
-			popQuestions.addLast(messages.getString("Game.PopQuestionX", i)); //$NON-NLS-1$
-			scienceQuestions.addLast(messages.getString("Game.ScienceQuestionX", i)); //$NON-NLS-1$
-			sportsQuestions.addLast(messages.getString("Game.SportsQuestionX", i)); //$NON-NLS-1$
-			rockQuestions.addLast(messages.getString("Game.RockQuestionX", i)); //$NON-NLS-1$
-		}
+		questions = new Questions(messages);
 	}
 
 	public boolean addPlayer(String playerName) {
@@ -68,19 +59,7 @@ public class Game {
 	}
 
 	private String askQuestion() {
-		LinkedList<String> questions = null;
-		if (currentCategory().equals(messages.getString("Game.Pop")))   //$NON-NLS-1$
-			questions = popQuestions;
-		if (currentCategory().equals(messages.getString("Game.Science")))   //$NON-NLS-1$
-			questions = scienceQuestions;
-		if (currentCategory().equals(messages.getString("Game.Sports")))   //$NON-NLS-1$
-			questions = sportsQuestions;
-		if (currentCategory().equals(messages.getString("Game.Rock")))   //$NON-NLS-1$
-			questions = rockQuestions;
-		String question = null;
-		if (!questions.isEmpty())
-			question = questions.removeFirst();
-		return question;
+		return questions.askQuestion(currentCategory());
 		
 	}
 	
