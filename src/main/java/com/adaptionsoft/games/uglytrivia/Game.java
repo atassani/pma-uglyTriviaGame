@@ -65,13 +65,13 @@ public class Game {
 	
 	private String currentCategory() {
 		if (currentPlayer.getPlace() == 0) return messages.getString("Game.Pop");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 4) return messages.getString("Game.Pop");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 8) return messages.getString("Game.Pop");  //$NON-NLS-1$
 		if (currentPlayer.getPlace() == 1) return messages.getString("Game.Science");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 5) return messages.getString("Game.Science");  //$NON-NLS-1$
-		if (currentPlayer.getPlace() == 9) return messages.getString("Game.Science");  //$NON-NLS-1$
 		if (currentPlayer.getPlace() == 2) return messages.getString("Game.Sports");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 4) return messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 5) return messages.getString("Game.Science");  //$NON-NLS-1$
 		if (currentPlayer.getPlace() == 6) return messages.getString("Game.Sports");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 8) return messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (currentPlayer.getPlace() == 9) return messages.getString("Game.Science");  //$NON-NLS-1$
 		if (currentPlayer.getPlace() == 10) return messages.getString("Game.Sports");  //$NON-NLS-1$
 		return messages.getString("Game.Rock");  //$NON-NLS-1$
 	}
