@@ -21,11 +21,11 @@ public class Questions {
 		for (String theme: themes) {
 			questionsMap.put(messages.getString("Game."+theme), new LinkedList<String>()); //$NON-NLS-1$
 		}
-    		for (int i = 0; i < 50; i++) {
+   		for (int i = 0; i < 50; i++) {
 			for (String theme: themes) {
 				questionsMap.get(messages.getString("Game."+theme)).addLast(messages.getString("Game."+ theme +"QuestionX", i)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
 			}
-    		}
+    	}
     }
 
 	public String askQuestion(String currentCategory) {

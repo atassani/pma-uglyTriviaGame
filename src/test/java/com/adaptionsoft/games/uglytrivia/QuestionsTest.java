@@ -1,12 +1,13 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import static org.junit.Assert.*;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.anyString;
+import org.mockito.Mockito;
 
 public class QuestionsTest {
 
@@ -17,13 +18,15 @@ public class QuestionsTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		when(messages.getString("", anyString()));
+		messages = Mockito.mock(Messages.class);
+		when(messages.getString("Game.Pop")).thenReturn("Pop");
+		when(messages.getString(anyString(), anyString())).thenReturn("Message");
 		questions = new Questions(messages);
 	}
 
 	@Test
 	public void test() {
-		questions.askQuestion("Pop");
+		Assert.assertEquals("Message", questions.askQuestion("Pop"));
 	}
 
 }
