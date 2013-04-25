@@ -2,6 +2,8 @@ package com.adaptionsoft.games.trivia.runner;
 import java.util.Locale;
 import java.util.Random;
 
+import com.adaptionsoft.games.uglytrivia.Answerer;
+import com.adaptionsoft.games.uglytrivia.Dice;
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.Messages;
 import com.adaptionsoft.games.uglytrivia.NoMoreQuestionsException;
@@ -11,20 +13,20 @@ import com.adaptionsoft.games.uglytrivia.Questions;
 public class GameRunner {
 
 	public static void main(String[] args) {
-		Game game = initialize();
 		Random random = new Random();
-		run(game, random);
+		Game game = initialize(random);
+		run(game);
 	}
 
-	static void run(Game aGame, Random random) {
+	static void run(Game aGame) {
 		try {
-		do {} while (aGame.playTurn(random));
+		do {} while (aGame.playTurn());
 		} catch(NoMoreQuestionsException e) {
 			System.out.println("No more questions. Game is over");
 		}
 	}
 
-	static Game initialize() {
+	static Game initialize(Random random) {
 		Locale.setDefault(new Locale("en"));
 		Game game = new Game();
 		Messages messages = new Messages();
@@ -36,6 +38,8 @@ public class GameRunner {
 		game.setMessages(messages);
 		game.setPlayers(players);
 		game.setQuestions(questions);
+		game.setDice(new Dice(random));
+		game.setAnswerer(new Answerer(random));
 		return game;
 	}
 }

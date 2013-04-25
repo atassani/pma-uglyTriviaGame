@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.adaptionsoft.games.uglytrivia.Answerer;
+import com.adaptionsoft.games.uglytrivia.Dice;
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.Messages;
 import com.adaptionsoft.games.uglytrivia.Players;
@@ -42,7 +44,7 @@ public class CharacterizationLocalizationTest {
 		ByteArrayOutputStream  stream = new ByteArrayOutputStream();
 		PrintStream oldOut = System.out;
 		System.setOut(new PrintStream(stream));
-		Random rand = new Random(0L);
+		Random random = new Random(0L);
 		Game game = new Game();
 		Messages messages = new Messages();
 		Players players = new Players(messages);
@@ -52,7 +54,9 @@ public class CharacterizationLocalizationTest {
 		game.setMessages(messages);
 		game.setPlayers(players);
 		game.setQuestions(new Questions(messages));
-		GameRunner.run(game, rand);
+		game.setDice(new Dice(random));
+		game.setAnswerer(new Answerer(random));
+		GameRunner.run(game);
 		String text = stream.toString();
 		System.out.flush();
 		System.setOut(oldOut);

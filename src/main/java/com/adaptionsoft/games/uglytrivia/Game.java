@@ -1,13 +1,13 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.Random;
-
 public class Game {
     boolean isGettingOutOfPenaltyBox;
 
     Messages messages;
     private Questions questions;
     private Players players;
+    private Dice dice;
+    private Answerer answerer;
     
 	public Game() {}
 	
@@ -23,13 +23,21 @@ public class Game {
 		this.players = players;
 	}
 	
-	public boolean playTurn(Random random) throws NoMoreQuestionsException {
-		int roll = random.nextInt(5) + 1;
+	public void setDice(Dice dice) {
+		this.dice = dice;
+	}
+	
+	public void setAnswerer(Answerer answerer) {
+		this.answerer = answerer;
+	}
+
+	public boolean playTurn() throws NoMoreQuestionsException {
+		int roll = dice.roll();
 		Player currentPlayer = players.getCurrentPlayer();
 		System.out.println(messages.getString("Game.XIsTheCurrentPlayer", currentPlayer.getName()));  //$NON-NLS-1$
 		System.out.println(messages.getString("Game.HasRolledAX", roll));  //$NON-NLS-1$
 		if (currentPlayer.isInPenaltyBox()) {
-			if (isOddNumber(roll)) {
+			if (isGettingOutOfPenaltyBox(roll)) {
 				isGettingOutOfPenaltyBox = true;
 				System.out.println(messages.getString("Game.XIsGettingOutOfPenaltyBox", currentPlayer.getName()));  //$NON-NLS-1$
 				playerAdvancesAndGetsNewQuestion(currentPlayer, roll);
@@ -41,7 +49,7 @@ public class Game {
 			playerAdvancesAndGetsNewQuestion(currentPlayer, roll);
 		}
 		boolean gameContinues;
-		if (isAnswerCorrect(random)) {
+		if (answerer.isAnswerCorrect()) {
 			gameContinues = wasCorrectlyAnswered(currentPlayer);
 		} else {
 			gameContinues = wrongAnswer(currentPlayer);
@@ -50,11 +58,7 @@ public class Game {
 		return gameContinues;
 	}
 
-	private boolean isAnswerCorrect(Random random) {
-		return random.nextInt(9) != 7;
-	}
-
-	private boolean isOddNumber(int roll) {
+	private boolean isGettingOutOfPenaltyBox(int roll) {
 		return roll % 2 != 0;
 	}
 
