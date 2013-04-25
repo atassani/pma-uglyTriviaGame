@@ -23,7 +23,6 @@ public class Players {
     }
     
     public Player nextPlayer() {
-		currentPlayerIndex++;
 		if (++currentPlayerIndex == playerList.size()) currentPlayerIndex = 0;
 		return playerList.get(currentPlayerIndex);
     }
