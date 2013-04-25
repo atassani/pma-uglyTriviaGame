@@ -22,13 +22,13 @@ public class Game {
 		return true;
 	}
 	
-	public boolean roll(Random random) throws NoMoreQuestionsException {
+	public boolean playTurn(Random random) throws NoMoreQuestionsException {
 		int roll = random.nextInt(5) + 1;
 		Player currentPlayer = players.getCurrentPlayer();
 		System.out.println(messages.getString("Game.XIsTheCurrentPlayer", currentPlayer.getName()));  //$NON-NLS-1$
 		System.out.println(messages.getString("Game.HasRolledAX", roll));  //$NON-NLS-1$
 		if (currentPlayer.isInPenaltyBox()) {
-			if (roll % 2 != 0) {
+			if (isOddNumber(roll)) {
 				isGettingOutOfPenaltyBox = true;
 				System.out.println(messages.getString("Game.XIsGettingOutOfPenaltyBox", currentPlayer.getName()));  //$NON-NLS-1$
 				playerAdvancesAndGetsNewQuestion(currentPlayer, roll);
@@ -39,48 +39,47 @@ public class Game {
 		} else {
 			playerAdvancesAndGetsNewQuestion(currentPlayer, roll);
 		}
-		boolean notAWinner;
-		if (random.nextInt(9) == 7) {
-			notAWinner = wrongAnswer(currentPlayer);
+		boolean gameContinues;
+		if (isAnswerCorrect(random)) {
+			gameContinues = wasCorrectlyAnswered(currentPlayer);
 		} else {
-			notAWinner = wasCorrectlyAnswered(currentPlayer);
+			gameContinues = wrongAnswer(currentPlayer);
 		}
-		return notAWinner;
+		players.nextPlayer();
+		return gameContinues;
+	}
+
+	private boolean isAnswerCorrect(Random random) {
+		return random.nextInt(9) != 7;
+	}
+
+	private boolean isOddNumber(int roll) {
+		return roll % 2 != 0;
 	}
 
 	private void playerAdvancesAndGetsNewQuestion(Player currentPlayer, int roll) throws NoMoreQuestionsException {
 		currentPlayer.advancePlaces(roll);
-		
 		System.out.println(messages.getString("Game.NewLocationOfXIsY", currentPlayer.getName(), currentPlayer.getPlace()));  //$NON-NLS-1$
 		System.out.println(messages.getString("Game.CategoryIsX",  questions.currentCategory(currentPlayer.getPlace())));  //$NON-NLS-1$
 		String question = questions.askQuestion(questions.currentCategory(currentPlayer.getPlace()));
 		System.out.println(question);
 	}
 
-	public boolean wasCorrectlyAnswered(Player currentPlayer) {
+	private boolean wasCorrectlyAnswered(Player currentPlayer) {
 		if (currentPlayer.isInPenaltyBox() && !isGettingOutOfPenaltyBox){
-				players.nextPlayer();
 				return true;
 		} else {
-			correctAnswerAndReward(currentPlayer);
-			boolean winner = !currentPlayer.isWinner();
-			players.nextPlayer();
-			return winner;
+			System.out.println(messages.getString("Game.AnswerWasCorrect"));  //$NON-NLS-1$
+			currentPlayer.rewardCorrectAnswer();
+			System.out.println(messages.getString("Game.XHasYGoldCoins", currentPlayer.getName(), currentPlayer.getPurse()));  //$NON-NLS-1$
+			return !currentPlayer.isWinner();
 		}
 	}
-
-	private void correctAnswerAndReward(Player currentPlayer) {
-		System.out.println(messages.getString("Game.AnswerWasCorrect"));  //$NON-NLS-1$
-		currentPlayer.rewardCorrectAnswer();
-		System.out.println(messages.getString("Game.XHasYGoldCoins", currentPlayer.getName(), currentPlayer.getPurse()));  //$NON-NLS-1$
-	}
 		
-	public boolean wrongAnswer(Player currentPlayer){
+	private boolean wrongAnswer(Player currentPlayer){
 		System.out.println(messages.getString("Game.AnswerWasNotCorrect"));   //$NON-NLS-1$
 		System.out.println(messages.getString("Game.XWasSentToPenaltyBox", currentPlayer.getName()));   //$NON-NLS-1$
 		currentPlayer.sendToPenaltyBox();
-		
-		players.nextPlayer();
 		return true;
 	}
 }

@@ -15,10 +15,7 @@ public class GameRunner {
 
 	static void run(Game aGame, Random random) {
 		try {
-		boolean notAWinner;
-		do {
-			notAWinner = aGame.roll(random);
-		} while (notAWinner);
+		do {} while (aGame.playTurn(random));
 		} catch(NoMoreQuestionsException e) {
 			System.out.println("No more questions. Game is over");
 		}
