@@ -35,4 +35,17 @@ public class Questions {
 			question = questions.removeFirst();
 		return question;
 	}
+
+	public String currentCategory(int place) {
+		if (place == 0) return messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (place == 1) return messages.getString("Game.Science");  //$NON-NLS-1$
+		if (place == 2) return messages.getString("Game.Sports");  //$NON-NLS-1$
+		if (place == 4) return messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (place == 5) return messages.getString("Game.Science");  //$NON-NLS-1$
+		if (place == 6) return messages.getString("Game.Sports");  //$NON-NLS-1$
+		if (place == 8) return messages.getString("Game.Pop");  //$NON-NLS-1$
+		if (place == 9) return messages.getString("Game.Science");  //$NON-NLS-1$
+		if (place == 10) return messages.getString("Game.Sports");  //$NON-NLS-1$
+		return messages.getString("Game.Rock");  //$NON-NLS-1$
+	}
 }
