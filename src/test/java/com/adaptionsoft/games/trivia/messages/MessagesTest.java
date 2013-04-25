@@ -1,8 +1,10 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.trivia.messages;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import com.adaptionsoft.games.trivia.messages.Messages;
 
 public class MessagesTest {
 

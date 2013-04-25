@@ -1,4 +1,4 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.trivia.exceptions;
 
 public class NoMoreQuestionsException extends Exception {
 

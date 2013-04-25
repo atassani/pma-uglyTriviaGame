@@ -1,8 +1,11 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.trivia.questions;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+
+import com.adaptionsoft.games.trivia.exceptions.NoMoreQuestionsException;
+import com.adaptionsoft.games.trivia.messages.Messages;
 
 public class Questions {
 	private Map<String, LinkedList<String>> questionsMap;

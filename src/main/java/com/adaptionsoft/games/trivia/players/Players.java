@@ -1,6 +1,8 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.trivia.players;
 
 import java.util.ArrayList;
+
+import com.adaptionsoft.games.trivia.messages.Messages;
 
 public class Players {
 	private ArrayList<Player> playerList;

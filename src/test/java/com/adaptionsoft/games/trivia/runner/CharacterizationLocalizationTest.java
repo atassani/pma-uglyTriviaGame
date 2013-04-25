@@ -9,12 +9,12 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.adaptionsoft.games.uglytrivia.Answerer;
-import com.adaptionsoft.games.uglytrivia.Dice;
-import com.adaptionsoft.games.uglytrivia.Game;
-import com.adaptionsoft.games.uglytrivia.Messages;
-import com.adaptionsoft.games.uglytrivia.Players;
-import com.adaptionsoft.games.uglytrivia.Questions;
+import com.adaptionsoft.games.trivia.Game;
+import com.adaptionsoft.games.trivia.answerer.Answerer;
+import com.adaptionsoft.games.trivia.dice.Dice;
+import com.adaptionsoft.games.trivia.messages.Messages;
+import com.adaptionsoft.games.trivia.players.Players;
+import com.adaptionsoft.games.trivia.questions.Questions;
 
 public class CharacterizationLocalizationTest {
 

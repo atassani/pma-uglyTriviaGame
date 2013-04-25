@@ -1,4 +1,4 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.trivia.messages;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;

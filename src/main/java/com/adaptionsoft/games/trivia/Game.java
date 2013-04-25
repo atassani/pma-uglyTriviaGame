@@ -1,4 +1,12 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.trivia;
+
+import com.adaptionsoft.games.trivia.answerer.Answerer;
+import com.adaptionsoft.games.trivia.dice.Dice;
+import com.adaptionsoft.games.trivia.exceptions.NoMoreQuestionsException;
+import com.adaptionsoft.games.trivia.messages.Messages;
+import com.adaptionsoft.games.trivia.players.Player;
+import com.adaptionsoft.games.trivia.players.Players;
+import com.adaptionsoft.games.trivia.questions.Questions;
 
 public class Game {
     boolean isGettingOutOfPenaltyBox;
