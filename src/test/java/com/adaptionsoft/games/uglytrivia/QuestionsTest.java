@@ -25,7 +25,7 @@ public class QuestionsTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws NoMoreQuestionsException {
 		Assert.assertEquals("Message", questions.askQuestion("Pop"));
 	}
 

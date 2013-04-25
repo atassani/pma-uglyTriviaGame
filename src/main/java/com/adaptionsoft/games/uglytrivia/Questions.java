@@ -28,12 +28,11 @@ public class Questions {
     	}
     }
 
-	public String askQuestion(String currentCategory) {
+	public String askQuestion(String currentCategory) throws NoMoreQuestionsException {
 		LinkedList<String> questions = questionsMap.get(currentCategory);
-		String question = null;
-		if (!questions.isEmpty())
-			question = questions.removeFirst();
-		return question;
+		if (questions.isEmpty())
+			throw new NoMoreQuestionsException();
+		return questions.removeFirst();
 	}
 
 	public String currentCategory(int place) {

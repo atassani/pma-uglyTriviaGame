@@ -1,11 +1,10 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
 	ArrayList<Player> players = new ArrayList<Player>();
-	
-
 	Player currentPlayer;
     int currentPlayerIndex = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -25,7 +24,8 @@ public class Game {
 		return true;
 	}
 	
-	public boolean roll(int roll) {
+	public boolean roll(Random random) throws NoMoreQuestionsException {
+		int roll = random.nextInt(5) + 1;
 		if (currentPlayer == null) currentPlayer = players.get(0);
 		System.out.println(messages.getString("Game.XIsTheCurrentPlayer", currentPlayer.getName()));  //$NON-NLS-1$
 		System.out.println(messages.getString("Game.HasRolledAX", roll));  //$NON-NLS-1$
@@ -33,36 +33,32 @@ public class Game {
 			if (roll % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 				System.out.println(messages.getString("Game.XIsGettingOutOfPenaltyBox", currentPlayer.getName()));  //$NON-NLS-1$
-				return playerAdvancesAndGetsNewQuestion(roll);
+				playerAdvancesAndGetsNewQuestion(roll);
 			} else {
 				System.out.println(messages.getString("Game.XIsNotGettingOutOfPenaltyBox", currentPlayer.getName()));  //$NON-NLS-1$
 				isGettingOutOfPenaltyBox = false;
-				return true;
 			}
 		} else {
-			return playerAdvancesAndGetsNewQuestion(roll);
+			playerAdvancesAndGetsNewQuestion(roll);
 		}
+		boolean notAWinner;
+		if (random.nextInt(9) == 7) {
+			notAWinner = wrongAnswer();
+		} else {
+			notAWinner = wasCorrectlyAnswered();
+		}
+		return notAWinner;
 	}
 
-	private boolean playerAdvancesAndGetsNewQuestion(int roll) {
+	private void playerAdvancesAndGetsNewQuestion(int roll) throws NoMoreQuestionsException {
 		currentPlayer.advancePlaces(roll);
 		
 		System.out.println(messages.getString("Game.NewLocationOfXIsY", currentPlayer.getName(), currentPlayer.getPlace()));  //$NON-NLS-1$
 		System.out.println(messages.getString("Game.CategoryIsX",  questions.currentCategory(currentPlayer.getPlace())));  //$NON-NLS-1$
-		String question = askQuestion();
-		if (question == null) {
-			System.out.println("No more questions. Game is over");
-			return false;
-		} 
+		String question = questions.askQuestion(questions.currentCategory(currentPlayer.getPlace()));
 		System.out.println(question);
-		return true;
 	}
 
-	private String askQuestion() {
-		return questions.askQuestion(questions.currentCategory(currentPlayer.getPlace()));
-		
-	}
-	
 	public boolean wasCorrectlyAnswered() {
 		if (currentPlayer.isInPenaltyBox() && !isGettingOutOfPenaltyBox){
 				nextPlayer();

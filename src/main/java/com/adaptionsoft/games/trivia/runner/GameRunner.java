@@ -3,26 +3,25 @@ import java.util.Locale;
 import java.util.Random;
 
 import com.adaptionsoft.games.uglytrivia.Game;
+import com.adaptionsoft.games.uglytrivia.NoMoreQuestionsException;
 
 public class GameRunner {
 
 	public static void main(String[] args) {
 		Game aGame = initialize();
-		Random rand = new Random();
-		run(aGame, rand);
+		Random random = new Random();
+		run(aGame, random);
 	}
 
-	static void run(Game aGame, Random rand) {
+	static void run(Game aGame, Random random) {
+		try {
 		boolean notAWinner;
 		do {
-			if (!aGame.roll(rand.nextInt(5) + 1))
-				return;
-			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wrongAnswer();
-			} else {
-				notAWinner = aGame.wasCorrectlyAnswered();
-			}
+			notAWinner = aGame.roll(random);
 		} while (notAWinner);
+		} catch(NoMoreQuestionsException e) {
+			System.out.println("No more questions. Game is over");
+		}
 	}
 
 	static Game initialize() {
