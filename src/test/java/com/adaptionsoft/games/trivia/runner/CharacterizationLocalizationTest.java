@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.adaptionsoft.games.trivia.Game;
 import com.adaptionsoft.games.trivia.answerer.Answerer;
-import com.adaptionsoft.games.trivia.dice.Dice;
+import com.adaptionsoft.games.trivia.dice.SingleDie;
 import com.adaptionsoft.games.trivia.messages.Messages;
 import com.adaptionsoft.games.trivia.players.Players;
 import com.adaptionsoft.games.trivia.questions.Questions;
@@ -54,7 +54,7 @@ public class CharacterizationLocalizationTest {
 		game.setMessages(messages);
 		game.setPlayers(players);
 		game.setQuestions(new Questions(messages));
-		game.setDice(new Dice(random));
+		game.setDice(new SingleDie(random));
 		game.setAnswerer(new Answerer(random));
 		GameRunner.run(game);
 		String text = stream.toString();

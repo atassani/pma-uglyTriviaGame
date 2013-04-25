@@ -15,13 +15,14 @@ import org.junit.Test;
 
 import com.adaptionsoft.games.trivia.Game;
 import com.adaptionsoft.games.trivia.answerer.Answerer;
+import com.adaptionsoft.games.trivia.dice.DiceMultipleFaces;
 import com.adaptionsoft.games.trivia.dice.SingleDie;
 import com.adaptionsoft.games.trivia.messages.Messages;
 import com.adaptionsoft.games.trivia.players.Players;
 import com.adaptionsoft.games.trivia.questions.Questions;
 import com.adaptionsoft.games.trivia.runner.GameRunner;
 
-public class CharacterizationTests {
+public class CharacterizationDiceMultipleFaces {
 	private Checker checker;
 	private Random random;
 	private Messages messages;
@@ -43,63 +44,37 @@ public class CharacterizationTests {
 		messages = new Messages();
 	}
 	
-	@Test
-	public void characterizationTestThreePlayers() throws IOException {
-		Game game = GameRunner.initialize(random);
-		GameRunner.run(game);
-		assertEquals(590124755L , checker.checksum.getValue());
-		checker.close();
-	}
-		
 	@Test 
-	public void characterizationTestSixPlayers() throws IOException {
+	public void characterizationTestDiceMultipleFacesEqualsSingleDie() throws IOException {
 		Game game = new Game();
 		Players players = new Players(messages);
 		players.add("Chet");
 		players.add("Pat");
 		players.add("Sue");
-		players.add("Tom");
-		players.add("Dick");
-		players.add("Harry");
 		game.setMessages(messages);
 		game.setPlayers(players);
 		game.setQuestions(new Questions(messages));
-		game.setDice(new SingleDie(random));
+		game.setDice(new DiceMultipleFaces(random, 1, 6));
 		game.setAnswerer(new Answerer(random));
 		GameRunner.run(game);
-		assertEquals(3219854289L , checker.checksum.getValue());
+		assertEquals(590124755L , checker.checksum.getValue());
 		checker.close();		
 	}
 	
 	@Test 
-	public void characterizationTestSixteenPlayers() throws IOException {
-		Players players = new Players(messages);
-		for (int i=0; i < 16; i++) 
-			players.add("Player"+i);
+	public void characterizationTestDiceMultipleFacesDifferent() throws IOException {
 		Game game = new Game();
+		Players players = new Players(messages);
+		players.add("Chet");
+		players.add("Pat");
+		players.add("Sue");
 		game.setMessages(messages);
 		game.setPlayers(players);
 		game.setQuestions(new Questions(messages));
-		game.setDice(new SingleDie(random));
+		game.setDice(new DiceMultipleFaces(random, 2, 10));
 		game.setAnswerer(new Answerer(random));
 		GameRunner.run(game);
-		assertEquals(142492561L , checker.checksum.getValue());
-		checker.close();		
-	}
-
-	@Test 
-	public void characterizationTestSixtyPlayers() throws IOException {
-		Players players = new Players(messages);
-		for (int i=0; i < 60; i++) 
-			players.add("Player"+i);
-		Game game = new Game();
-		game.setMessages(messages);
-		game.setPlayers(players);
-		game.setQuestions(new Questions(messages));
-		game.setDice(new SingleDie(random));
-		game.setAnswerer(new Answerer(random));
-		GameRunner.run(game);
-		assertEquals(94728590L , checker.checksum.getValue());
+		assertFalse(590124755L == checker.checksum.getValue());
 		checker.close();		
 	}
 }

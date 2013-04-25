@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.adaptionsoft.games.trivia.Game;
 import com.adaptionsoft.games.trivia.answerer.Answerer;
-import com.adaptionsoft.games.trivia.dice.Dice;
+import com.adaptionsoft.games.trivia.dice.SingleDie;
 import com.adaptionsoft.games.trivia.exceptions.NoMoreQuestionsException;
 import com.adaptionsoft.games.trivia.messages.Messages;
 import com.adaptionsoft.games.trivia.players.Players;
@@ -38,7 +38,7 @@ public class GameRunner {
 		game.setMessages(messages);
 		game.setPlayers(players);
 		game.setQuestions(questions);
-		game.setDice(new Dice(random));
+		game.setDice(new SingleDie(random));
 		game.setAnswerer(new Answerer(random));
 		return game;
 	}
