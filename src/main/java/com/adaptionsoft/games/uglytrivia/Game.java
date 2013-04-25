@@ -5,21 +5,22 @@ import java.util.Random;
 public class Game {
     boolean isGettingOutOfPenaltyBox;
 
-    Messages messages = new Messages();
+    Messages messages;
     private Questions questions;
     private Players players;
     
-	public Game() {
-		questions = new Questions(messages);
-		players = new Players();
+	public Game() {}
+	
+	public void setMessages(Messages messages) {
+		this.messages = messages;
 	}
-
-	public boolean addPlayer(String playerName) {
-	    players.add(playerName);
-	    
-	    System.out.println(messages.getString("Game.PlayerXWasAdded", playerName ));  //$NON-NLS-1$
-	    System.out.println(messages.getString("Game.IsPlayerNumberX", players.size()));  //$NON-NLS-1$
-		return true;
+	
+	public void setQuestions(Questions questions) {
+		this.questions = questions;
+	}
+	
+	public void setPlayers(Players players) {
+		this.players = players;
 	}
 	
 	public boolean playTurn(Random random) throws NoMoreQuestionsException {
